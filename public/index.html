@@ -66,6 +66,10 @@
         let mm = Math.floor(diff / 1000 / 60) % 60;
         let hh = Math.floor(diff / 1000 / 60 / 60);
         setNow(current);
+        if (diff < 0){
+            document.querySelectorAll('.main-content')[0].innerHTML = ` <div class="message-root"> Go Home DLLM </div>`
+            return;
+        }
         show.innerHTML = `
             <div class="message-root">
                 <div>
