@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+    <head>
+    </head>
+
+    <body style="background:#2E2F34;color:#DBBC7F;">
+        <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:95vh;width:99vw;font-size:2rem;font-weight:bolder;">
+            <div style="display:flex;flex-direction:row;">
+                The time between &nbsp;<div id="now"></div>&nbsp;and &nbsp;5:30:00 PM is:
+            </div>
+            <br>
+            <div id="diff"><div>
+        <div>
+    </body>
+</html>
+<script>
+    let fivehalf = new Date();
+    fivehalf.setHours(17)
+    fivehalf.setMinutes(30)
+    fivehalf.setSeconds(0)
+    fivehalf.setMilliseconds(0)
+
+    let setNow = (curr) => {
+        let now = document.getElementById('now');
+        let ss = Math.floor(curr / 1000) % 60;
+        let mm = Math.floor(curr / 1000 / 60) % 60;
+        let hh = Math.floor(curr / 1000 / 60 / 60);
+        let APM = Math.floor(curr / 1000 / 60 / 60) % 12 > 0 ? 'PM' : 'AM';
+        let times = curr.toLocaleString().split(" ")
+        now.innerHTML = times[1] + " " + times[2]
+    }
+
+    let diff = () => {
+        let curr = new Date();
+        let show = document.getElementById('diff');
+        let diff = fivehalf - curr
+        let ss = Math.floor(diff / 1000) % 60;
+        let mm = Math.floor(diff / 1000 / 60) % 60;
+        let hh = Math.floor(diff / 1000 / 60 / 60);
+        setNow(curr);
+        show.innerHTML = `${hh} hours, ${mm} minutes, and ${ss} seconds`;
+    }
+
+    setInterval(diff, 100)
+</script>
