@@ -2,11 +2,39 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+
+            .message-root {
+                display:flex;
+                flex-direction: row;
+            }
+
+            .main-content {
+                font-size: 1.5rem;
+            }
+
+            @media (max-width: 640px) {
+                .message-root {
+                    flex-direction: column;
+                    text-align: center;
+                }
+                .main-content {
+                    font-size: 2rem;
+                }
+            }
+
+        </style>
     </head>
     <body style="background:#2E2F34;color:#DBBC7F;">
-        <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:95vh;width:99vw;font-size:1rem;font-weight:bolder;">
-            <div style="display:flex;flex-direction:row;">
-                The time between &nbsp;<div id="now"></div>&nbsp;and &nbsp;5:30:00 PM is:
+        <div class="main-content" style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:95vh;width:99vw;font-weight:bolder;">
+            <div class="message-root" >
+                <div>
+                    <span>The time between &nbsp;</span>
+                </div>
+                <div id="now"></div>
+                <div>
+                    <span>&nbsp;and &nbsp;5:30:00 PM is:</span>
+                </div>
             </div>
             <br>
             <div id="diff"><div>
@@ -14,30 +42,30 @@
     </body>
 </html>
 <script>
-    let fivehalf = new Date();
-    fivehalf.setHours(17)
-    fivehalf.setMinutes(30)
-    fivehalf.setSeconds(0)
-    fivehalf.setMilliseconds(0)
+    let fiveHalf = new Date();
+    fiveHalf.setHours(17)
+    fiveHalf.setMinutes(30)
+    fiveHalf.setSeconds(0)
+    fiveHalf.setMilliseconds(0)
 
-    let setNow = (curr) => {
+    let setNow = (current) => {
         let now = document.getElementById('now');
-        let ss = Math.floor(curr / 1000) % 60;
-        let mm = Math.floor(curr / 1000 / 60) % 60;
-        let hh = Math.floor(curr / 1000 / 60 / 60);
-        let APM = Math.floor(curr / 1000 / 60 / 60) % 12 > 0 ? 'PM' : 'AM';
-        let times = curr.toLocaleString('en-US').split(" ")
+        let ss = Math.floor(current / 1000) % 60;
+        let mm = Math.floor(current / 1000 / 60) % 60;
+        let hh = Math.floor(current / 1000 / 60 / 60);
+        let APM = Math.floor(current / 1000 / 60 / 60) % 12 > 0 ? 'PM' : 'AM';
+        let times = current.toLocaleString('en-US').split(" ")
         now.innerHTML = times[1] + " " + times[2]
     }
 
     let diff = () => {
-        let curr = new Date();
+        let current = new Date();
         let show = document.getElementById('diff');
-        let diff = fivehalf - curr
+        let diff = fiveHalf - current
         let ss = Math.floor(diff / 1000) % 60;
         let mm = Math.floor(diff / 1000 / 60) % 60;
         let hh = Math.floor(diff / 1000 / 60 / 60);
-        setNow(curr);
+        setNow(current);
         show.innerHTML = `${hh} hours, ${mm} minutes, and ${ss} seconds`;
     }
 
