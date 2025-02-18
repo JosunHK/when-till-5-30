@@ -47,7 +47,7 @@
     fiveHalf.setMinutes(30)
     fiveHalf.setSeconds(0)
     fiveHalf.setMilliseconds(0)
-
+    
     let setNow = (current) => {
         let now = document.getElementById('now');
         let ss = Math.floor(current / 1000) % 60;
@@ -69,7 +69,11 @@
         if (diff < 0){
             document.querySelectorAll('.main-content')[0].innerHTML = ` <div class="message-root"> Go Home DLLM </div>`
             return;
+        }else if (current.getFullYear() == 2025 && current.getMonth == 1 && current.getDate == 18) {
+            document.querySelectorAll('.main-content')[0].innerHTML = ` <div class="message-root">🔥 NO OFF TODAY DLLM 🔥 </div>`
+            return;
         }
+        
         show.innerHTML = `
             <div class="message-root">
                 <div>
