@@ -23,6 +23,11 @@
                 }
             }
 
+            .ahh{
+                background: url(https://na.cx/i/zYxKAjJ.gif) !important;
+                background-size:cover !important;
+            }
+
         </style>
     </head>
     <body style="background:#2E2F34;color:#DBBC7F;">
@@ -65,13 +70,18 @@
         let ss = Math.floor(diff / 1000) % 60;
         let mm = Math.floor(diff / 1000 / 60) % 60;
         let hh = Math.floor(diff / 1000 / 60 / 60);
-        setNow(current);
+        
         if (diff < 0){
             document.querySelectorAll('.main-content')[0].innerHTML = ` <div class="message-root"> Go Home DLLM </div>`
+            document.body.classList.remove("ahh");
             return;
         }else if (current.getFullYear() == 2025 && current.getMonth() == 1 && current.getDate() == 18) {
             document.querySelectorAll('.main-content')[0].innerHTML = ` <div class="message-root">🔥 NO OFF TODAY DLLM 🔥 </div>`
+            document.body.classList.add("ahh");
             return;
+        }else{
+            document.body.classList.remove("ahh");
+            setNow(current);
         }
         
         show.innerHTML = `
