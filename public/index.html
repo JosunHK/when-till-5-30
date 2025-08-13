@@ -28,7 +28,7 @@
                 background-size:cover !important;
             }
 
-            .isocial{
+            /**.isocial{
                 background: url(/tg_logo.png) !important;
                 background-size:cover !important;
                 height: 5rem;
@@ -37,10 +37,10 @@
                 right: 5%;
                 top: 7%;
             }
-
+            **/
         </style>
     </head>
-    <body style="background:#2E2F34;color:#DBBC7F;">
+    <body style="background:#2E2F34;color:#DBBC7F;" class="ahh">
         <div class="isocial"> </div>
         <div class="main-content" style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:95vh;width:99vw;font-weight:bolder;">
             <div class="message-root" >
@@ -84,14 +84,11 @@
         
         if (diff < 0){
             document.querySelectorAll('.main-content')[0].innerHTML = ` <div class="message-root"> Go Home DLLM </div>`
-            document.body.classList.remove("ahh");
             return;
         }else if (current.getFullYear() == 2025 && current.getMonth() == 1 && current.getDate() == 18) {
             document.querySelectorAll('.main-content')[0].innerHTML = ` <div class="message-root">🔥 NO OFF TODAY DLLM 🔥 </div>`
-            document.body.classList.add("ahh");
             return;
         }else{
-            document.body.classList.remove("ahh");
             setNow(current);
         }
         
