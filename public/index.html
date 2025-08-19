@@ -37,6 +37,11 @@
                 background-size:cover !important;
             }
 
+            .cat{
+                background: url(https://media.tenor.com/lCKwsD2OW1kAAAAj/happy-cat-happy-happy-cat.gif) !important;
+                background-size:cover !important;
+            }
+
             /**.isocial{
                 background: url(/tg_logo.png) !important;
                 background-size:cover !important;
@@ -103,6 +108,13 @@
         
         if (diff < 0){
             document.querySelectorAll('.main-content')[0].innerHTML = ` <div class="message-root"> Go Home DLLM </div>`
+
+            const ahh = document.querySelectorAll('.ahh')[0];
+            ahh.classList.remove("ahh");
+            ahh.classList.add("cat");
+
+            const lau = document.getElementById('lau');
+            lau.id = "";
             return;
         }else if (current.getFullYear() == 2025 && current.getMonth() == 1 && current.getDate() == 18) {
             document.querySelectorAll('.main-content')[0].innerHTML = ` <div class="message-root">🔥 NO OFF TODAY DLLM 🔥 </div>`
