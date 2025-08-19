@@ -68,11 +68,17 @@
     </body>
 </html>
 <script>
-    let fiveHalf = new Date();
-    fiveHalf.setHours(17)
-    fiveHalf.setMinutes(30)
-    fiveHalf.setSeconds(0)
-    fiveHalf.setMilliseconds(0)
+    let targetTime = new Date();
+    targetTime.setHours(17)
+    targetTime.setMinutes(30)
+    targetTime.setSeconds(0)
+    targetTime.setMilliseconds(0)
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const hour = urlParams.get('hour');
+    const minute = urlParams.get('minute');
+    if(hour && hour <= 24 && hour >= 0) targetTime.setHours(hour*1);
+    if(minute && mintue <= 60 && minute>= 0) targetTime.setMinutes(minute*1);
     
     let setNow = (current) => {
         let now = document.getElementById('now');
@@ -87,7 +93,7 @@
     let diff = () => {
         let current = new Date();
         let show = document.getElementById('diff');
-        let diff = fiveHalf - current
+        let diff = targetTime - current
         let ss = Math.floor(diff / 1000) % 60;
         let mm = Math.floor(diff / 1000 / 60) % 60;
         let hh = Math.floor(diff / 1000 / 60 / 60);
