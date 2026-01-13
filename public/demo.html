@@ -63,7 +63,7 @@
     document.addEventListener('mousemove', function(event) {
         const x = event.clientX
         const maxWidth = document.body.clientWidth;
-        test.value = Math.floor(x/(maxWidth/27));
+        test.value = Math.floor(x/(maxWidth/26));
         test.dispatchEvent(new Event("input"));
     })
 </script>
