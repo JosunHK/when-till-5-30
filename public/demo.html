@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .frames {
+                width: 100%;
+                position:absolute;
+                opacity: 0%;
+            }
+        </style>
+    </head>
+    <body style="background:#2E2F34;color:#DBBC7F;" class="ahh">
+        <div style="height:800px;width:450px;position:relative;">
+            <img class="frames" src="./asset/SixSix3xHangnails_A01.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A02.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A03.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A04.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A05.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A06.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A07.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A08.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A09.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A10.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A11.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A12.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A13.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A14.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A15.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A16.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A17.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A18.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A19.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A20.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A21.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A22.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A23.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A24.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A25.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A26.JPG">
+            <img class="frames" src="./asset/SixSix3xHangnails_A27.JPG">
+        </div>
+        <div style="width:450px;">
+            <input style="width:100%" type="range" min="0" max="26" value="0" class="slider" id="test">
+        </div>
+    </body>
+</html>
+<script>
+    const test = document.getElementById("test");
+    test.addEventListener("input", function(){
+        const currVal = this.value;
+        const frames = document.getElementsByClassName("frames");
+        for (let i = 0; i < frames.length; i++) {
+            if(i == currVal) {
+                frames[i].style.opacity = "100%";
+            } else {
+                frames[i].style.opacity = "0%";
+            }
+        }
+    });
+    test.dispatchEvent(new Event("input"));
+
+    document.addEventListener('mousemove', function(event) {
+        const x = event.clientX
+        const maxWidth = document.body.clientWidth;
+        test.value = Math.floor(x/(maxWidth/27));
+        test.dispatchEvent(new Event("input"));
+    })
+</script>

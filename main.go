@@ -25,6 +25,7 @@ func main() {
 	))
 
 	e.Static("/", "public")
+	e.Static("/asset", "asset")
 
 	e.Logger.Fatal(e.Start(PORT))
 }
