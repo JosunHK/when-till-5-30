@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <canvas id="canvas" style="height:100vh;width:100vw">
+        </canvas>
+    </body>
+</html>
+<script>
+    const canvas = document.getElementById("canvas");
+    canvas.setAttribute("width",window.innerWidth);
+    canvas.setAttribute("height",window.innerHeight);
+    const ctx = canvas.getContext("2d");
+    const d = 70;
+    const bodyVec = [52, 58, 40, 60, 68, 71, 65, 50, 28, 15, 11, 9, 7, 7];
+    const circleCount = bodyVec.length;
+
+    let pointer = { x: 0, y: 0 };
+    let circle = { x: 1, y: 1 };
+    let circles = [];
+    for(let i = 1; i <= circleCount; i++) {
+        circles.push({x:d*i, y:d*i})
+    }
+
+    canvas.addEventListener('mousemove', e => {
+        pointer.x = e.offsetX;
+        pointer.y = e.offsetY;
+    });
+
+    function getNewPos(x1, y1, x2, y2){
+        let v = {x : x1 - x2, y : y1 - y2 }
+        let d2 = Math.sqrt(v.x**2 + v.y**2)
+        let u = {x : v.x / d2, y : v.y / d2 }
+        return {x: x2 + d*u.x, y: y2 + d*u.y }
+    }
+
+    function getBodyPathPoints(x1, y1, x2, y2, r, rad){
+        let v = {x : x1 - x2, y : y1 - y2 }
+        let d2 = Math.sqrt(v.x**2 + v.y**2)
+        let u = {x : v.x / d2, y : v.y / d2 }
+        let front = {x: x2 + d*u.x + u.x, y: y2 + d*u.y + u.y}
+        let theta = Math.atan2(y2-y1, x2-x1);
+        return {x : front.x + r*Math.cos(theta + rad), y : front.y + r*Math.sin(theta + rad) }
+    }
+
+    function leftRight(x1, y1, x2, y2, r){
+        let v = {x : x1 - x2, y : y1 - y2 }
+        let d2 = Math.sqrt(v.x**2 + v.y**2)
+        let u = {x : v.x / d2, y : v.y / d2 }
+        let front = {x: x2 + d*u.x + u.x, y: y2 + d*u.y + u.y}
+        let theta = Math.atan2(y2-y1, x2-x1);
+        let left = {x : front.x + r*Math.cos(theta + 1.5), y : front.y + r*Math.sin(theta + 1.5) }
+        let right = {x : front.x + r*Math.cos(theta - 1.5), y : front.y + r*Math.sin(theta - 1.5) }
+        ctx.beginPath();
+        ctx.fillStyle = "red";
+        ctx.arc(left.x, left.y, 10, 0, Math.PI*2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.fillStyle = "blue";
+        ctx.arc(right.x, right.y, 10, 0, Math.PI*2);
+        ctx.fill();
+    }
+
+    function loop() {
+        requestAnimationFrame(loop);
+        ctx.clearRect(0,0, canvas.width, canvas.height);
+
+        ctx.beginPath();
+        for(let i = 0; i < circleCount; i++){
+            if(i === 0) {
+                circles[i] = getNewPos(circles[i].x, circles[i].y, pointer.x, pointer.y)
+                const toMove = getBodyPathPoints(circles[i].x, circles[i].y, pointer.x, pointer.y, bodyVec[i], 1.5)
+                ctx.moveTo(toMove.x, toMove.y)
+                //leftRight(circles[i].x, circles[i].y, pointer.x, pointer.y, bodyVec[i])
+            } else {
+                circles[i] = getNewPos(circles[i].x, circles[i].y, circles[i-1].x, circles[i-1].y)
+                const toMove = getBodyPathPoints(circles[i].x, circles[i].y, circles[i-1].x, circles[i-1].y, bodyVec[i], 1.5)
+                const xc = (circles[i].x + circles[i-1].x) / 2;
+                const yc = (circles[i].y + circles[i-1].y) / 2;
+                ctx.quadraticCurveTo(toMove.x, toMove.y, xc, yc)
+                //leftRight(circles[i].x, circles[i].y, circles[i-1].x, circles[i-1].y, bodyVec[i])
+            }
+        }
+        ctx.stroke();
+
+        ctx.beginPath();
+        for(let i = circleCount-1; i >=0; i--){
+            if(i === 0) {
+                circles[i] = getNewPos(circles[i].x, circles[i].y, pointer.x, pointer.y)
+                const toMove = getBodyPathPoints(circles[i].x, circles[i].y, pointer.x, pointer.y, bodyVec[i], -1.5)
+                ctx.moveTo(toMove.x, toMove.y)
+                //leftRight(circles[i].x, circles[i].y, pointer.x, pointer.y, bodyVec[i])
+            } else {
+                circles[i] = getNewPos(circles[i].x, circles[i].y, circles[i-1].x, circles[i-1].y)
+                const toMove = getBodyPathPoints(circles[i].x, circles[i].y, circles[i-1].x, circles[i-1].y, bodyVec[i], -1.5)
+                const xc = (circles[i].x + circles[i-1].x) / 2;
+                const yc = (circles[i].y + circles[i-1].y) / 2;
+                ctx.quadraticCurveTo(toMove.x, toMove.y, xc, yc)
+                //leftRight(circles[i].x, circles[i].y, circles[i-1].x, circles[i-1].y, bodyVec[i])
+            }
+        }
+        ctx.stroke();
+    }
+
+    loop();
+</script>
